@@ -1,22 +1,29 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component, signal } from '@angular/core';
-
-type Character = {
-  id: number;
-  name: string;
-  power: number;
-};
+import { NgClass } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { DragonBallService } from '@app/services/dragonball';
 
 @Component({
   selector: 'app-dragonball-page',
-  imports: [NgClass, NgFor],
+  imports: [NgClass],
   templateUrl: './dragonball-page.component.html',
   styleUrl: './dragonball-page.component.css',
 })
 export class DragonballPageComponent {
-  characters = signal<Character[]>([
-    { id: 1, name: 'Goku', power: 9000 },
-    { id: 2, name: 'Vegeta', power: 8000 },
-    { id: 3, name: 'Gohan', power: 7000 },
-  ]);
+  public dragonBallService = inject(DragonBallService);
+
+  name = signal<string>('');
+  power = signal<number>(0);
+
+  addCharacter() {
+    if (!this.name() || !this.power() || this.power() <= 0) {
+      return;
+    }
+    this.dragonBallService.addCharacter({
+      id: Math.floor(Math.random() * 1000),
+      name: this.name(),
+      power: this.power(),
+    });
+    this.name.set('');
+    this.power.set(0);
+  }
 }

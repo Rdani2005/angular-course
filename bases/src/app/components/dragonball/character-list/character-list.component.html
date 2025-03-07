@@ -1,0 +1,15 @@
+<h3>{{ listName() }}</h3>
+<ul>
+  @for (character of characters(); track character.id) {
+    <li>
+      <span>{{ character.name }}</span> -
+      <strong
+        [ngClass]="{
+          'text-danger': character.power >= 9000,
+          'text-primary': character.power < 9000,
+        }"
+        >{{ character.power }}</strong
+      >
+    </li>
+  }
+</ul>
