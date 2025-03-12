@@ -140,7 +140,7 @@ export const Analytics = object({
 });
 export type Analytics = InferOutput<typeof Analytics>;
 
-export const Datum = object({
+export const GiphyItem = object({
   type: TypeSchema,
   id: string(),
   url: string(),
@@ -164,10 +164,10 @@ export const Datum = object({
   analytics: Analytics,
   alt_text: string(),
 });
-export type Datum = InferOutput<typeof Datum>;
+export type GiphyItem = InferOutput<typeof GiphyItem>;
 
 export const GiphyResponse = object({
-  data: array(Datum),
+  data: array(GiphyItem),
   meta: Meta,
   pagination: Pagination,
 });
