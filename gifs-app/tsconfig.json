@@ -20,10 +20,7 @@
     "baseUrl": "./src/",
     "paths": {
       "@gifs-app/*": ["app/*"],
-      "@auth/*": ["app/auth/*"],
-      "@gifs/*": ["app/gifs/*"],
-      "@shared/*": ["app/shared/*"],
-      "@gifs-app/env/*": ["environments/*"]
+      "@gifs-env/*": ["environments/*"]
     }
   },
   "angularCompilerOptions": {

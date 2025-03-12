@@ -1,1 +1,12 @@
-<p>dashboard-page works!</p>
+<div
+  class="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white"
+>
+  <div class="h-screen grid grid-cols-[theme(width.64)_1fr] w-screen">
+    <app-sidebar-menu />
+    <div
+      class="overflow-scroll flex flex-col flex-1 w-full h-full text-slate-800 p-4"
+    >
+      <router-outlet />
+    </div>
+  </div>
+</div>

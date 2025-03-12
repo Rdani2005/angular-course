@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { SidebarMenuItemComponent } from './menu-item/menu-item.component';
+import { SidebarHeaderComponent } from './sidebar-header/sidebar-header.component';
+import { SidebarOptionsComponent } from './sidebar-options/sidebar-options.component';
 
 @Component({
   selector: 'app-sidebar-menu',
-  imports: [SidebarMenuItemComponent],
+  imports: [SidebarHeaderComponent, SidebarOptionsComponent],
   templateUrl: './sidebar-menu.component.html',
   styleUrl: './sidebar-menu.component.css',
 })

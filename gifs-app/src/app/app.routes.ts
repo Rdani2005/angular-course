@@ -4,18 +4,27 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('@gifs/pages/dashboard-page/dashboard-page.component'),
+      import('@gifs-app/gifs/pages/dashboard-page/dashboard-page.component'),
     children: [
-      {
-        path: 'search',
-        loadComponent: () =>
-          import('@gifs/pages/search-page/search-page.component'),
-      },
       {
         path: 'trending',
         loadComponent: () =>
-          import('@gifs/pages/trending-page/trending-page.component'),
+          import('@gifs-app/gifs/pages/trending-page/trending-page.component'),
+      },
+
+      {
+        path: 'search',
+        loadComponent: () =>
+          import('@gifs-app/gifs/pages/search-page/search-page.component'),
+      },
+      {
+        path: '**',
+        redirectTo: 'trending',
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
   },
 ];

@@ -1,5 +1,6 @@
-import { Component, input, InputSignal } from '@angular/core';
+import { Component, input, type InputSignal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { type MenuOption } from '@gifs-app/shared/models';
 
 @Component({
   selector: 'app-sidebar-menu-item',
@@ -8,7 +9,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './menu-item.component.css',
 })
 export class SidebarMenuItemComponent {
-  title: InputSignal<string> = input.required<string>();
-  description: InputSignal<string> = input.required<string>();
-  to: InputSignal<string> = input.required<string>();
+  information: InputSignal<MenuOption> = input.required<MenuOption>();
 }

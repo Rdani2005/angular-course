@@ -1,0 +1,5 @@
+<div id="nav" class="w-full px-6">
+  @for (item of items(); track item.to) {
+    <app-sidebar-menu-item [information]="item" />
+  }
+</div>
