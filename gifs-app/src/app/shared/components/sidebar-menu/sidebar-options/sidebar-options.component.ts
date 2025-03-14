@@ -1,6 +1,7 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { SidebarMenuItemComponent } from '../menu-item/menu-item.component';
 import { type MenuOption } from '@gifs-app/shared/models';
+import { GifsService } from '@gifs-app/gifs/services';
 
 @Component({
   selector: 'gifs-sidebar-options',
@@ -23,4 +24,16 @@ export class SidebarOptionsComponent {
       to: '/dashboard/search',
     },
   ]);
+
+  gifsService: GifsService = inject(GifsService);
+
+  history: Signal<MenuOption[]> = computed<MenuOption[]>(() => {
+    const keys = this.gifsService.searchHistoryKeys();
+    return keys.map((key) => ({
+      icon: 'fa-solid fa-clock-rotate-left',
+      label: key,
+      subLabel: 'Search History',
+      to: `/dashboard/search?q=${key}`,
+    }));
+  });
 }

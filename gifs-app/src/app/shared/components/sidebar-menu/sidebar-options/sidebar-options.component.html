@@ -2,4 +2,8 @@
   @for (item of items(); track item.to) {
     <app-sidebar-menu-item [information]="item" />
   }
+
+  @for (item of history(); track item.to) {
+    <app-sidebar-menu-item [information]="item" />
+  }
 </div>
