@@ -19,6 +19,5 @@ export default class SearchPageComponent {
     this.gifsService.searchGifs(query).subscribe((response) => {
       this.gifs.set(GifMapper.mapGifArrayToGifListItemArray(response));
     });
-    console.log(`Searching for ${query}`);
   }
 }

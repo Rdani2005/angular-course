@@ -33,7 +33,7 @@ export class SidebarOptionsComponent {
       icon: 'fa-solid fa-clock-rotate-left',
       label: key,
       subLabel: 'Search History',
-      to: `/dashboard/search?q=${key}`,
+      to: `/dashboard/history/${key}`,
     }));
   });
 }
