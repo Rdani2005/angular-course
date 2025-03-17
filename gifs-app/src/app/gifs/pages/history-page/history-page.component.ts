@@ -1,10 +1,11 @@
 import { Component, computed, inject, Signal } from '@angular/core';
+import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { GifListComponent } from '@gifs-app/gifs/components';
 import { GifMapper } from '@gifs-app/gifs/mappers/giph.mapper';
+import { type Gif, type GifListItem } from '@gifs-app/gifs/models';
 import { GifsService } from '@gifs-app/gifs/services';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-history-page',
@@ -18,13 +19,13 @@ export default class HistoryPageComponent {
       map((params) => params['query'] ?? ''),
     ),
   );
-  gifService = inject(GifsService);
+  gifService: GifsService = inject(GifsService);
 
-  gifsByKey = computed(() => {
+  gifsByKey: Signal<Gif[]> = computed(() => {
     return this.gifService.getHistoryGifs(this.query() ?? '');
   });
 
-  gifs = computed(() => {
+  gifs: Signal<GifListItem[]> = computed(() => {
     return GifMapper.mapGifArrayToGifListItemArray(this.gifsByKey());
   });
 }
