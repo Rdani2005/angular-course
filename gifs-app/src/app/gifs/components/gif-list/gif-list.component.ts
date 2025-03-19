@@ -1,7 +1,10 @@
 import {
   Component,
   computed,
+  ElementRef,
   input,
+  output,
+  viewChild,
   type InputSignal,
   type Signal,
 } from '@angular/core';
@@ -24,7 +27,15 @@ export class GifListComponent {
     return groupedGifs;
   });
 
+  divRef = viewChild<ElementRef<HTMLDivElement>>('groupDiv');
+
   trackByItems(item: GifListItem[]): string {
     return item.map((gif) => gif.image).join(',');
+  }
+
+  onScroll = output<Event>();
+
+  handleScroll(event: Event) {
+    this.onScroll.emit(event);
   }
 }

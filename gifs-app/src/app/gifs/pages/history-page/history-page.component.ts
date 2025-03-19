@@ -22,7 +22,7 @@ export default class HistoryPageComponent {
   gifService: GifsService = inject(GifsService);
 
   gifsByKey: Signal<Gif[]> = computed(() => {
-    return this.gifService.getHistoryGifs(this.query() ?? '');
+    return this.gifService.gifsSearch.getGifsByKey(this.query() ?? '');
   });
 
   gifs: Signal<GifListItem[]> = computed(() => {

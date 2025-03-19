@@ -16,7 +16,7 @@ export default class SearchPageComponent {
 
   onSearch(query: string) {
     this.gifs.set([]);
-    this.gifsService.searchGifs(query).subscribe((response) => {
+    this.gifsService.gifsSearch.search(query).subscribe((response) => {
       this.gifs.set(GifMapper.mapGifArrayToGifListItemArray(response));
     });
   }

@@ -28,7 +28,7 @@ export class SidebarOptionsComponent {
   gifsService: GifsService = inject(GifsService);
 
   history: Signal<MenuOption[]> = computed<MenuOption[]>(() => {
-    const keys = this.gifsService.searchHistoryKeys();
+    const keys = this.gifsService.gifsSearch.historyKeys();
     return keys.map((key) => ({
       icon: 'fa-solid fa-clock-rotate-left',
       label: key,
