@@ -1,4 +1,9 @@
-<country-search-input (onSearch)="onSearch($event)" />
+<country-search-input (onSearch)="query.set($event)" />
 <div class="mt-5">
-  <country-table [countries]="countries()" />
+  <country-table
+    [countries]="countryRxs.value() ?? []"
+    [isLoading]="countryRxs.isLoading()"
+    [isEmpty]="countryRxs.value()?.length === 0"
+    [errorMessage]="countryRxs.error()"
+  />
 </div>

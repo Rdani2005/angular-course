@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { environment } from '@country-env/environment';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { type Country } from '../models';
 import { type CountryResponse } from '../models/response';
 import { CountryMapper } from '../mappers/';
@@ -22,6 +22,11 @@ export class CountriesByCapitalServiceImpl
       .get<CountryResponse[]>(`${environment.countriesUrl}/capital/${query}`)
       .pipe(
         map((response) => response.map(CountryMapper.countryResponseToCountry)),
+        catchError(() => {
+          return throwError(
+            () => new Error('Could not find country with this query.'),
+          );
+        }),
       );
   }
 }

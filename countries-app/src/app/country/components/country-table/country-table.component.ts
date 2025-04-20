@@ -11,4 +11,9 @@ import { Country } from '@country-app/country/models';
 })
 export class CountryTableComponent {
   countries: InputSignal<Country[]> = input.required<Country[]>();
+  errorMessage: InputSignal<string | unknown | null> = input<
+    string | unknown | null
+  >();
+  isLoading: InputSignal<boolean> = input<boolean>(false);
+  isEmpty: InputSignal<boolean> = input<boolean>(false);
 }
