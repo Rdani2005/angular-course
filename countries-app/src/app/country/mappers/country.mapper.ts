@@ -12,6 +12,8 @@ export class CountryMapper {
       flag: response.flag,
       flagSvg: response.flags.svg,
       cca2: response.cca2,
+      region: response.region,
+      subRegion: response.subregion,
     };
   }
 }

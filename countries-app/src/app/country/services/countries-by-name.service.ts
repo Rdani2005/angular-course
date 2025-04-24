@@ -1,19 +1,19 @@
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { Country } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { CountryResponse } from '../models/response';
 import { environment } from '@country-env/environment';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
-import { type Country } from '../models';
-import { type CountryResponse } from '../models/response';
-import { CountryMapper } from '../mappers/';
+import { CountryMapper } from '../mappers';
 import { CountriesCacheService } from './countries-cache.service';
 
-export interface CountriesByCapitalService {
+export interface CountriesByNameService {
   search(query: string): Observable<Country[]>;
 }
 
-export class CountriesByCapitalServiceImpl
+export class CountriesByNameServiceImpl
   extends CountriesCacheService
-  implements CountriesByCapitalService
+  implements CountriesByNameService
 {
   private httpClient: HttpClient = inject(HttpClient);
 
@@ -25,13 +25,13 @@ export class CountriesByCapitalServiceImpl
     }
 
     return this.httpClient
-      .get<CountryResponse[]>(`${environment.countriesUrl}/capital/${query}`)
+      .get<CountryResponse[]>(`${environment.countriesUrl}/name/${query}`)
       .pipe(
         map((response) => response.map(CountryMapper.countryResponseToCountry)),
         tap((countries) => this.setToCache(query, countries)),
         catchError(() => {
           return throwError(
-            () => new Error('Could not find country with this query.'),
+            () => new Error('Could not find country with this name.'),
           );
         }),
       );

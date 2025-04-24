@@ -1,17 +1,18 @@
 import {
   Component,
   inject,
-  resource,
+  ResourceRef,
   signal,
   WritableSignal,
 } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import {
   CountryTableComponent,
   SearchInputComponent,
 } from '@country-app/country/components';
 import { Country } from '@country-app/country/models';
 import { CountriesService } from '@country-app/country/services';
-import { firstValueFrom } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -23,13 +24,14 @@ export class ByCapitalPageComponent {
   countryService: CountriesService = inject(CountriesService);
   query: WritableSignal<string> = signal<string>('');
 
-  countryRxs = resource<Country[], { query: string }>({
+  countryRxs: ResourceRef<Country[] | undefined> = rxResource<
+    Country[],
+    { query: string }
+  >({
     request: () => ({ query: this.query() }),
-    loader: async ({ request }) => {
-      if (!request.query) return [];
-      return await firstValueFrom(
-        this.countryService.byCapital.search(request.query),
-      );
+    loader: ({ request }) => {
+      if (!request.query) return of([]);
+      return this.countryService.byCapital.search(request.query);
     },
   });
 }

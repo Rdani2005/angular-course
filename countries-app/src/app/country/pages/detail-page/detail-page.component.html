@@ -1,1 +1,11 @@
-<p>detail-page works!</p>
+@if (countryRxs.error()) {
+  <app-not-found />
+}
+
+@if (countryRxs.isLoading()) {
+  <h1 class="text-3xl">Loading...</h1>
+}
+
+@if (countryRxs.hasValue()) {
+  <country-information [country]="countryRxs.value()!" />
+}
