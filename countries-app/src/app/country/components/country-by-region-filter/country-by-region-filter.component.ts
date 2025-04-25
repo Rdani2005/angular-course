@@ -3,13 +3,21 @@ import {
   computed,
   effect,
   EffectRef,
+  inject,
+  linkedSignal,
   output,
   OutputEmitterRef,
-  signal,
   Signal,
   WritableSignal,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Region, regions } from '@country-app/country/models';
+
+function validateQueryParam(param: string): Region {
+  param = param.toLowerCase();
+  const region = regions.find((region) => region.toLowerCase() === param);
+  return region ?? regions[0];
+}
 
 @Component({
   selector: 'country-by-region-filters',
@@ -24,14 +32,23 @@ export class CountryByRegionFilterComponent {
     return regions;
   });
 
-  selectedRegion: WritableSignal<Region> = signal<Region>(
-    this.currentRegions()[0],
-  );
+  activeRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  queryParam = this.activeRoute.snapshot.queryParamMap.get('region') ?? '';
+
+  selectedRegion: WritableSignal<Region> = linkedSignal<Region>(() => {
+    return validateQueryParam(this.queryParam ?? '');
+  });
 
   selectedRegionEffect: EffectRef = effect(() => {
     const region = this.selectedRegion();
     if (region) {
       this.onSearch.emit(region);
+      this.router.navigate([], {
+        relativeTo: this.activeRoute,
+        queryParams: { region },
+        queryParamsHandling: 'merge',
+      });
     }
   });
 }

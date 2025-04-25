@@ -8,7 +8,7 @@ import {
   OutputEmitterRef,
   WritableSignal,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'country-search-input',
@@ -20,6 +20,7 @@ export class SearchInputComponent {
   onSearch: OutputEmitterRef<string> = output<string>();
 
   activeRoute = inject(ActivatedRoute);
+  router = inject(Router);
   queryParam = this.activeRoute.snapshot.queryParamMap.get('query') ?? '';
 
   inputValue: WritableSignal<string> = linkedSignal<string>(() => {
@@ -30,6 +31,11 @@ export class SearchInputComponent {
     const value = this.inputValue();
     const timeout = setTimeout(() => {
       this.onSearch.emit(value);
+      this.router.navigate([], {
+        relativeTo: this.activeRoute,
+        queryParams: { query: value },
+        queryParamsHandling: 'merge',
+      });
     }, 500);
 
     onCleanup(() => {
