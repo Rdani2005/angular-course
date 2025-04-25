@@ -1,0 +1,11 @@
+<section class="flex flex-row gap-2 mt-2">
+  @for (region of currentRegions(); track region) {
+    <button
+      class="btn mr-2 btn-outline w-[100px]"
+      (click)="selectedRegion.set(region)"
+      [class.btn-primary]="selectedRegion() === region"
+    >
+      {{ region }}
+    </button>
+  }
+</section>

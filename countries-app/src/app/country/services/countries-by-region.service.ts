@@ -23,11 +23,13 @@ export class CountriesByRegionServiceImpl
     }
 
     return this.httpClient
-      .get<CountryResponse[]>(`${environment.countriesUrl}/name/${query}`)
+      .get<CountryResponse[]>(`${environment.countriesUrl}/region/${query}`)
       .pipe(
         map((response) => response.map(CountryMapper.countryResponseToCountry)),
         tap((countries) => this.setToCache(query, countries)),
-        catchError(() => {
+        catchError((error) => {
+          console.log(error);
+
           return throwError(
             () => new Error('Could not find countries with this region.'),
           );

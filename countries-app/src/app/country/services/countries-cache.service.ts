@@ -1,6 +1,6 @@
 import { Country } from '../models';
 
-abstract class CountriesCacheService {
+export abstract class CountriesCacheService {
   private queryCacheName = new Map<string, Country[]>();
 
   protected getFromCache(query: string): Country[] | undefined {

@@ -2,11 +2,13 @@ import {
   Component,
   effect,
   EffectRef,
+  inject,
+  linkedSignal,
   output,
   OutputEmitterRef,
-  signal,
   WritableSignal,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'country-search-input',
@@ -17,7 +19,12 @@ import {
 export class SearchInputComponent {
   onSearch: OutputEmitterRef<string> = output<string>();
 
-  inputValue: WritableSignal<string> = signal<string>('');
+  activeRoute = inject(ActivatedRoute);
+  queryParam = this.activeRoute.snapshot.queryParamMap.get('query') ?? '';
+
+  inputValue: WritableSignal<string> = linkedSignal<string>(() => {
+    return this.queryParam ?? '';
+  });
 
   debounceEffect: EffectRef = effect((onCleanup) => {
     const value = this.inputValue();

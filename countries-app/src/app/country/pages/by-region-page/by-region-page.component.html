@@ -1,1 +1,9 @@
-<p>by-region-page works!</p>
+<country-by-region-filters (onSearch)="region.set($event)" />
+<div class="mt-5">
+  <country-table
+    [countries]="countryRxs.value() ?? []"
+    [isLoading]="countryRxs.isLoading()"
+    [isEmpty]="countryRxs.value()?.length === 0"
+    [errorMessage]="countryRxs.error()"
+  />
+</div>
