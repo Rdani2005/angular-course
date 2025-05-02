@@ -19,7 +19,7 @@
     "module": "ES2022",
     "baseUrl": "./src/",
     "paths": {
-      "@pipes-app": "app/*"
+      "@pipes-app/*": ["app/*"]
     }
   },
   "angularCompilerOptions": {

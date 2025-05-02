@@ -1,0 +1,24 @@
+<section>
+  <h1 class="text-2xl font-bold">Basic Pipes</h1>
+  <h3 class="text-xl font-thin">Pipes included on Angular</h3>
+</section>
+
+<section class="stats stats-vertical lg:stats-horizontal shadow w-full">
+  <article class="stat">
+    <section class="stat-title">LowerCase Pipe</section>
+    <section class="stat-value">{{ nameUpper() | lowercase }}</section>
+    <section class="stat-desc">{{ nameUpper() }}</section>
+  </article>
+
+  <article class="stat">
+    <section class="stat-title">UpperCase Pipe</section>
+    <section class="stat-value">{{ nameLower() | uppercase }}</section>
+    <section class="stat-desc">{{ nameLower() }}</section>
+  </article>
+
+  <article class="stat">
+    <section class="stat-title">TitleCase Pipe</section>
+    <section class="stat-value">{{ fullName() | titlecase }}</section>
+    <section class="stat-desc">{{ fullName() }}</section>
+  </article>
+</section>

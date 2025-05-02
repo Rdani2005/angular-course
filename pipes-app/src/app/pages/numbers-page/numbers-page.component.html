@@ -1,0 +1,29 @@
+<section>
+  <h1 class="text-2xl font-bold">Numbers Pipes</h1>
+  <h3 class="text-xl font-thin">Pipes included on Angular</h3>
+</section>
+
+<section class="stats stats-vertical lg:stats-horizontal shadow w-full">
+  <article class="stat">
+    <section class="stat-title">Number: '1.2-2'</section>
+    <section class="stat-value">{{ totalSells() | number: "1.2-2" }}</section>
+    <section class="stat-desc">{{ totalSells() }}</section>
+  </article>
+
+  <article class="stat">
+    <section class="stat-title">Number: '1.1-2'</section>
+    <section class="stat-value">{{ totalSells() | number: "1.1-2" }}</section>
+    <section class="stat-desc">{{ totalSells() }}</section>
+  </article>
+
+  <article class="stat">
+    <section class="stat-title">Currency</section>
+    <section class="stat-value">{{ totalSells() | currency: "USD" }}</section>
+    <section class="stat-desc">{{ totalSells() }}</section>
+  </article>
+  <article class="stat">
+    <section class="stat-title">Percent</section>
+    <section class="stat-value">{{ percent() | percent }}</section>
+    <section class="stat-desc">{{ percent() }}</section>
+  </article>
+</section>
