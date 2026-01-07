@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 type ErrorMessages = Partial<{
   required: string | ((e: any) => string);
@@ -18,10 +18,25 @@ const DEFAULT_MESSAGES: ErrorMessages = {
   min: (e) => `Valor mínimo de ${e.min}.`,
   max: (e) => `Valor máximo de ${e.max}.`,
   email: "Correo inválido.",
+  emailTaken: "El correo ya se encuentra registrado.",
   pattern: "Formato inválido.",
+  passwordsNotEqual: "Las contrasenas no coinciden.",
+  notStrider: "El usuario no puede ser Strider.",
 };
 
+async function sleep() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2500);
+  })
+}
+
 export class FormUtils {
+  static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+
   static isValidField(
     form: FormGroup,
     fieldName: string
@@ -72,4 +87,41 @@ export class FormUtils {
     }
     return null;
   }
+
+    static isFieldOneEqualFieldTwo(field: string, field2: string) {
+    return (formGroup: AbstractControl) => {
+      const field1Value = formGroup.get(field)?.value;
+      const field2Value = formGroup.get(field2)?.value;
+      if (field1Value === field2Value) {
+        return null;
+      }
+
+      return {
+        passwordsNotEqual: true
+      }
+    }
+  }
+
+  static async checkingServerResponse(control: AbstractControl): Promise<ValidationErrors | null> {
+    console.log("Server Validation");
+
+    await sleep();
+    const formValue = control.value;
+    if (formValue === "hello@world.com") {
+      return {
+        emailTaken: true
+      }
+    }
+    return null;
+  }
+
+  static notStrider(control: AbstractControl): ValidationErrors | null {
+    if (control.value === "Strider") {
+      return {
+        notStrider: true,
+      }
+    }
+    return null;
+  }
+
 }
